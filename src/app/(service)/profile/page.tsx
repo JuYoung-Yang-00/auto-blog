@@ -38,7 +38,7 @@ return (
         <div>
           <p>
             <span className="font-medium">Your public page url: </span>
-            <a href={`https://jyy.ngrok.dev/${profileData.username}/`} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+            <a href={`https://box-jet.vercel.app/${profileData.username}/`} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
               https://box-jet.vercel.app/{profileData.username}/
             </a>
           </p>
