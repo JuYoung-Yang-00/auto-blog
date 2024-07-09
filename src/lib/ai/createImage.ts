@@ -26,7 +26,6 @@ export async function createImage(prompt: string) {
       
       if(response.status === 200) {
         console.log('Generated content:', response);
-        fs.writeFileSync("./lighthouse.png", Buffer.from(response.data));
         return Buffer.from(response.data);
       } else {
         throw new Error(`${response.status}: ${response.data.toString()}`);
