@@ -42,41 +42,41 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mx-4">
-        <div className='h-[600px] lg:w-full w-3/4 max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
+        <div className='h-[600px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
             <div 
-                className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between py-32 border-r'
-                style={{ backgroundImage: `url('/background.jpeg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r'
+                style={{ backgroundImage: `url('/22.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
             </div>
             <div className='w-full lg:col-span-6 col-span-12 items-center justify-center flex'>
                 <form onSubmit={handleSubmit} className="w-full max-w-xs lg:w-1/2 p-8 space-y-6">
-                    <div>
-                    <Image src="/logo.png" alt="logo" width={100} height={100} className="mx-auto mb-4 lg:hidden flex" />
-                    <h2 className="text-center text-3xl font-extrabold mb-6">Login</h2>
-                    <label htmlFor="email" className="block text-sm font-medium ">Email</label>
+                  <Image src="/logo.png" alt="logo" width={100} height={100} className="mx-auto mb-4 lg:hidden flex" />
+                  <h2 className="text-center text-3xl">Login</h2>
+                    <div className=''>
                     <input
                         type="email"
                         id="email"
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full mt-1 p-2 border rounded-md"
+                        className="w-full p-2 border rounded font-light"
+                        placeholder='Email'
                         required
                     />
                     </div>
                     <div>
-                    <label htmlFor="password" className="block text-sm font-medium">Password</label>
                     <input
                         type="password"
                         id="password"
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full mt-1 p-2 border rounded-md"
+                        className="w-full p-2 border rounded font-light"
+                        placeholder='Password'
                         required
                     />
                     </div>
-                    <button type="submit" disabled={loading} className="w-full p-2 rounded-md border font-light hover:font-normal hover:border-2">
+                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-light hover:font-normal">
                     {loading ? 'Logging in...' : 'Log in'}
                     </button>
                     <p className="text-center">

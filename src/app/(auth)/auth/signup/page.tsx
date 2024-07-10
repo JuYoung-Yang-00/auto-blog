@@ -20,8 +20,8 @@ const Signup = () => {
   const [formData, setFormData] = useState({
     email: '',
     username: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     password: ''
   });
   const [isPasswordValid, setIsPasswordValid] = useState(true);
@@ -65,31 +65,29 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mx-4">
-        <div className='h-[800px] lg:w-full w-3/4 max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
+        <div className='h-[650px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
             <div 
                 className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r'
-                style={{ backgroundImage: `url('/background.jpeg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                style={{ backgroundImage: `url('/22.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
             </div>
             <div className='w-full lg:col-span-6 col-span-12 items-center justify-center flex'>
                 <form onSubmit={handleSubmit} className="w-full max-w-xs lg:w-1/2 p-8 space-y-6">
                     <Image src="/logo.png" alt="logo" width={100} height={100}  className="mx-auto mb-4 lg:hidden flex" />
-                    <h2 className="text-center text-3xl font-extrabold ">Signup</h2>
-                    <div className="space-y-4">
-                    {(['email', 'username', 'firstName', 'lastName', 'password'] as const).map(field => (
+                    <h2 className="text-center text-3xl">Signup</h2>
+                    <div className="space-y-5">
+                    {(['email', 'username', 'first_name', 'last_name', 'password'] as const).map(field => (
                         <div key={field}>
-                        <label htmlFor={field} className="block text-sm font-medium ">
-                            {field.split(/(?=[A-Z])/).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
-                        </label>
                         <input
                             id={field}
                             type={field === 'password' ? 'password' : 'text'}
                             autoComplete={field}
                             required
-                            className="w-full mt-1 p-2 border rounded-md "
+                            className="w-full p-2 border rounded font-light "
                             name={field}
                             value={formData[field]}
                             onChange={handleInputChange}
+                            placeholder={field.split(/(?=[A-Z])/).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ')}
                         />
                         </div>
                     ))}
@@ -99,8 +97,8 @@ const Signup = () => {
                         </p>
                     )}
                     </div>
-                    <button type="submit" disabled={loading} className="w-full p-2 rounded-md border font-light hover:font-normal hover:border-2">
-                    {loading ? 'Sign up' : 'Sign up'}
+                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-light hover:font-normal">
+                    {loading ? 'Signing up...' : 'Sign up'}
                     </button>
                     <p className="text-center">
                     <Link href="/auth/login">
