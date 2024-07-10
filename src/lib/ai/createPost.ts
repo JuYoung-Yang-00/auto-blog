@@ -24,6 +24,7 @@ export async function createBlogPost(categories: string, keywords: string, maini
     Consider the following in your response:
       - You should focus on factual information about the category.
       - Structure your content in a way that is easy to read and understand.
+      - Clearly structure your paragraphs. 
       - Start from the basics and gradually move to more advanced topics.
       - In the "image" key, return a prompt for an text-to-image model to create an image that is relevant to your blog post.
 
@@ -40,7 +41,7 @@ export async function createBlogPost(categories: string, keywords: string, maini
                  Here are some key concepts to discuss: 
                 ${JSON.stringify(keywords)}
 
-                Make sure the content is less than 300 words.
+                Make sure the content is less than 500 words.
                  `;
 
     const prompt = ChatPromptTemplate.fromTemplate(TEMPLATE);

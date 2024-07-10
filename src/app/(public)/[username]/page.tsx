@@ -42,7 +42,7 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5;
+  const postsPerPage = 10;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -77,31 +77,37 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
     fetchPosts();
   }, [params.username, router]);
 
+  const featuredPosts = posts.filter((post) => post.featured);
+  const regularPosts = posts.filter((post) =>!post.featured);
+
   if (isLoading) return <div className='min-h-screen'>  </div>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="min-h-screen w-full max-w-[1500px] mx-auto px-8 mt-28">
+    <div className="min-h-screen w-full max-w-[1450px] mx-auto px-8 mt-28">
       <div className="flex flex-row gap-4 text-xl font-bold mb-10">
         <p> || </p>
-        <h1 className='hover:underline'> {params.username} </h1>
+        <h1 className='hover:underline'> {params.username.toUpperCase()} </h1>
       </div>
-      <div className="flex flex-col gap-6">
-        {currentPosts.map((post) => (
-          <div key={post.id} className="border-b py-4 my-4 last:border-b-0 flex-col lg:flex-row flex justify-between">
-            <div className="flex flex-col justify-between items-start">
+
+      {/* Featured Posts Carousel */}
+
+      <div className="flex flex-col gap-5">
+        {currentPosts.reverse().map((post) => (
+          <div key={post.id} className="border-b py-0 my-0 last:border-b-0 flex-col lg:flex-row flex justify-between">
+            <div className="flex flex-col items-start">
               <Link href={`/${params.username}/${post.id}`}>
                 <span className="text-lg font-medium hover:underline">{post.title}</span>
               </Link>
-              <div className="mt-6 mb-12 flex gap-4">
+              <div className="mt-2 mb-5 flex gap-4">
                 {post.post_categories.map((category) => (
-                  <span key={category.category_id} className="border px-2 py-1 rounded text-sm">
+                  <span key={category.category_id} className="border px-2 py-1 rounded text-sm font-light">
                     {category.categories.name}
                   </span>
                 ))}
               </div>
             </div>
-            <div className=''>
+            <div className='lg:flex hidden'>
                 {post?.url && (
                   <Image
                     src={post.url}
@@ -116,6 +122,8 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
           </div>
         ))}
       </div>
+
+
       <Pagination>
         <PaginationContent>
           <PaginationItem>

@@ -56,17 +56,13 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="min-h-screen w-full max-w-[1500px] mx-auto px-8 mt-28">
+    <div className="min-h-screen w-full max-w-[1450px] mx-auto px-8 mt-28">
       <div className="flex flex-col gap-6">
-        <div className="flex flex-row  gap-4 text-lg font-bold">
-          <p> || </p>
-          <h1> {params.username} </h1>
-        </div>
           <div className="border-b py-6 my-6 last:border-b-0">
             <div className="flex justify-between items-center">
-                <span className="text-xl font-medium mx-auto mb-10">{post?.title}</span>
+                <span className="text-3xl font-bold mx-auto mb-5">{post?.title}</span>
             </div>
-              <div className='w-full lg:w-1/2 mx-auto mt-10 mb-20'>
+              <div className='w-full lg:w-3/4 mx-auto mt-10 mb-5'>
                 {post?.url && (
                   <Image
                     src={post.url}
@@ -77,22 +73,24 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
                     className='rounded'
                   />
                 )}
+                <div className="w-full lg:w-3/4 mt-1 mb-10 font-light gap-2">
+                  <h1> By {params.username} </h1>
+                  <p>{post?.created_at ? new Date(post.created_at).toLocaleDateString('en-CA') : ''}</p>
+            </div>
               </div>
-            <div className="mt-6 mb-10">
-              <div className="flex flex-wrap gap-4 mb-6">
+            <div className="flex flex-wrap justify-start gap-4 mb-6">
                 {post?.post_categories.map((category) => (
-                  <span key={category.category_id} className="border px-2 py-1 rounded text-sm font-medium">
+                  <span key={category.category_id} className="border px-2 py-1 rounded text-sm font-light">
                     {category.categories.name}
                   </span>
                 ))}
-              </div>
-              <div className=" space-y-6">
+            </div>
+            <div className="space-y-6">
                 {post?.content.split('\n').map((paragraph, index) => (
                   <p key={index}>
                     {paragraph}
                   </p>
                 ))}
-              </div>
             </div>
           </div>
       </div>
