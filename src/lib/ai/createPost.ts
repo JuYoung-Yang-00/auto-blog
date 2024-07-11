@@ -18,7 +18,7 @@ export async function createBlogPost(categories: string, keywords: string, maini
 
     You must always output a JSON object with an "title" key, "content" key, and "image" key.
     The "title" key must have a string value.
-    The "content" key must have a string value.
+    The "content" key must have a string value. It must be written in markdown syntax for beautiful rendering.
     The "image" key must have a string value. 
     
     Consider the following in your response:

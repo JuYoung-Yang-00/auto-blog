@@ -1,24 +1,38 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useUsername } from '@/app/(public)/components/UsernameContext';
 import Link from 'next/link'
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import Image from 'next/image';
-
 interface Category {
   category_id: number;
   categories: {
     name: string;
   };
 }
+import Autoplay from "embla-carousel-autoplay"
+import * as React from "react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
 
 
 interface Post {
@@ -41,19 +55,39 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  const { username } = params;
+  const { setUsername } = useUsername();
+
+  const featuredPosts = posts.filter((post) => post.featured);
+  const regularPosts = posts.filter((post) =>!post.featured);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 10;
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const postsPerPage = currentPage === 1 ? 5 : 10;
+
+  const totalRegularPosts = regularPosts.length;
+  const totalPostsForPagination = 5 + 10 * (Math.ceil((totalRegularPosts - 5) / 10));
+  const totalPages = currentPage === 1 ? Math.ceil(totalRegularPosts / 5) : Math.ceil((totalRegularPosts - 5) / 10) + 1;
+
+  const indexOfFirstPost = currentPage === 1 ? 0 : 5 + (currentPage - 2) * 10;
+  const indexOfLastPost = currentPage === 1 ? 5 : indexOfFirstPost + 10;
+  const currentPosts = regularPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+
+
   const handlePreviousPage = () => {
-    setCurrentPage((prev) => (prev === 1 ? prev : prev - 1));
+    setCurrentPage(prev => (prev === 1 ? prev : prev - 1));
   };
   
   const handleNextPage = () => {
-    setCurrentPage((prev) => (prev === totalPages ? prev : prev + 1));
+    setCurrentPage(prev => (prev === totalPages ? prev : prev + 1));
   };
+
+  useEffect(() => {
+    if (username && typeof username === 'string') {
+      setUsername(username);
+    }
+
+  }, [username, setUsername]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -77,32 +111,104 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
     fetchPosts();
   }, [params.username, router]);
 
-  const featuredPosts = posts.filter((post) => post.featured);
-  const regularPosts = posts.filter((post) =>!post.featured);
+  currentPosts.sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  function FeaturedPosts() {
+    const plugin = React.useRef(
+      Autoplay({
+        delay: 3000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      })
+    )
+    return (
+      <Carousel 
+        className="w-full"
+        plugins={[plugin.current]}
+        opts={{ loop: true, align: "start" }}
+      >
+        <CarouselContent className="-ml-1">
+          {featuredPosts.map((post, index) => (
+            <CarouselItem key={index} className="pl-1">
+              <div className="p-1">
+                <Link href={`/post/${post.id}`}>
+                  <Card className='w-full grid lg:grid-cols-12 grid-cols-1'>
+                    <div className='w-full lg:col-span-6'>
+                      {post.url && (
+                        <div className='w-full lg:h-full h-[350px] overflow-hidden relative'>
+                          <Image src={post.url} alt={post.title} layout='fill' objectFit='cover' />
+                        </div>
+                      )}
+                    </div>
+                    <div className='w-full lg:col-span-6'>
+                      <CardHeader>
+                        <CardTitle className='font-extralight lg:text-4xl text-3xl pt-2 lg:px-10 px-0'>{post.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex flex-col aspect-auto items-start">
+                        <div className='flex flex-wrap gap-4 lg:pl-10 lg:py-8'>
+                          {post.post_categories.map((category) => (
+                            <div key={category.category_id} className='flex flex-wrap justify-start items-start'>
+                              <CardDescription className='rounded lg:text-md text-sm font-extralight'>
+                                {category.categories.name.toUpperCase()}
+                              </CardDescription>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                      <CardFooter className='justify-end hidden lg:flex'>
+                        <p className='font-extralight text-xs'>{post?.created_at ? new Date(post.created_at).toLocaleDateString('en-CA') : ''}</p>
+                      </CardFooter>
+                    </div>
+                  </Card>
+                </Link>
+
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    )
+  }
 
   if (isLoading) return <div className='min-h-screen'>  </div>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="min-h-screen w-full max-w-[1450px] mx-auto px-8 mt-28">
-      <div className="flex flex-row gap-4 text-xl font-bold mb-10">
-        <p> || </p>
-        <h1 className='hover:underline'> {params.username.toUpperCase()} </h1>
+    <div className="min-h-screen w-full max-w-[1480px] mx-auto p-2 lg:px-8 mt-14">
+      {/* This div below */}
+      {currentPage === 1 && ( // This checks if the current page is the first page
+      <div>
+        <div className='flex flex-col gap-5 max-w-[1100px] mx-auto mb-8 lg:mb-16'>
+          <h1 className="text-2xl font-extralight border-b pb-2"> Featured </h1>
+          <FeaturedPosts />
+        </div>
+
+        <div className='text-2xl font-extralight max-w-[1100px] mx-auto border-b pb-2 mb-10'>
+          <h1>Recent</h1>
+        </div>
       </div>
+      )}
 
-      {/* Featured Posts Carousel */}
-
-      <div className="flex flex-col gap-5">
-        {currentPosts.reverse().map((post) => (
-          <div key={post.id} className="border-b py-0 my-0 last:border-b-0 flex-col lg:flex-row flex justify-between">
+      {/* Pagination */}
+      <div className="flex flex-col gap-5 max-w-[1100px] mx-auto">
+        {currentPage !== 1 && (
+          <div className='mt-10 border-t pt-3'>
+          </div>
+        )}
+        {currentPosts.map((post) => (
+          <div key={post.id} className="border-b border-dotted pb-5 my-0 last:border-b-0 flex-col lg:flex-row flex justify-between">
             <div className="flex flex-col items-start">
               <Link href={`/${params.username}/${post.id}`}>
-                <span className="text-lg font-medium hover:underline">{post.title}</span>
+                <span className="text-lg font-light hover:underline">{post.title}</span>
               </Link>
               <div className="mt-2 mb-5 flex gap-4">
                 {post.post_categories.map((category) => (
-                  <span key={category.category_id} className="border px-2 py-1 rounded text-sm font-light">
-                    {category.categories.name}
+                  <span key={category.category_id} className="border px-2 py-1 rounded text-sm font-extralight">
+                    {category.categories.name.toLowerCase()}
                   </span>
                 ))}
               </div>
@@ -112,8 +218,8 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
                   <Image
                     src={post.url}
                     alt="Image"
-                    width={200}
-                    height={200}
+                    width={250}
+                    height={250}
                     // layout="responsive"
                     className='rounded'
                   />
@@ -122,7 +228,6 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
           </div>
         ))}
       </div>
-
 
       <Pagination>
         <PaginationContent>
@@ -139,9 +244,6 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
               </PaginationLink>
             </PaginationItem>
           ))}
-          {/* <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem> */}
           <PaginationItem>
             <PaginationNext onClick={handleNextPage}  />
           </PaginationItem>
@@ -149,9 +251,7 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
       </Pagination>
 
     </div>
-
   );
-  
 }
 
 

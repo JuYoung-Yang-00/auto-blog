@@ -118,3 +118,6 @@ const Category = () => {
 };
 
 export default Category;
+
+
+// use scrollarea  https://ui.shadcn.com/docs/components/scroll-area

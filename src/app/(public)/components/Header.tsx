@@ -2,47 +2,38 @@
 
 import Link from 'next/link'
 import { ModeToggle } from '@/components/ui/modetoggle'
-import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useUsername } from '@/app/(public)/components/UsernameContext';
+import { UsernameProvider } from '@/app/(public)/components/UsernameContext'; 
 
 const Header: React.FC = () => {
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [hidden, setHidden] = useState(false);
+  const { username } = useUsername();
 
-  const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
-          setHidden(true);
-      } else {
-          setHidden(false);
-      }
-      setLastScrollY(currentScrollY); 
-  };
-
-  useEffect(() => {
-      window.addEventListener('scroll', handleScroll, { passive: true });
-
-      return () => {
-          window.removeEventListener('scroll', handleScroll);
-      };
-  }, [lastScrollY]);
-
-    return (
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
-      style={{ backdropFilter: 'blur(5px)' }}>
-        <div className="flex flex-row w-full gap-10 h-[45px] items-center justify-between px-8 max-w-[1500px] mx-auto">
-          <div className='flex flex-row gap-5 items-center'>
-            <Image src="/logo.png" alt="logo" width={40} height={40} className="mx-auto" />
-          </div>
-          <div className='flex flex-row lg:gap-6 gap-3 items-center'>
-            <Link href='/auth/login'>
-                <span className='font-light hover:font-normal lg:text-md text-sm'>Login</span>
-            </Link>
-            <ModeToggle/>
-          </div>
+  return (
+    <UsernameProvider>
+    <div className='fixed top-0 left-0 right-0 z-50'
+    style={{ backdropFilter: 'blur(5px)', WebkitBackdropFilter: 'blur(5px)'}}
+    >
+      <div className="flex flex-row w-full gap-10 h-[35px] lg:h-[45px] items-center justify-between px-2 lg:px-8 max-w-[1480px] mx-auto">
+        <div className='flex flex-row items-center'>
+          <Link href={`/${username}`}>
+            <div className="flex flex-row gap-2 font-light">
+              <p> || </p>
+              <h1 className=''> {username.toUpperCase()} </h1>
+            </div>
+          </Link>
+        </div>
+        <div className='flex flex-row lg:gap-6 gap-1 items-center -mr-2 lg:mr-0'>
+          <Link href='/auth/login'>
+              <span className='font-extralight hover:font-normal lg:text-md text-sm'>Login</span>
+          </Link>
+          <ModeToggle/>
         </div>
       </div>
-    );
-  };
+    </div>
+    </UsernameProvider>
+  );
+};
   
-  export default Header;
+export default Header;
+

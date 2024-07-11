@@ -65,17 +65,17 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mx-4">
-        <div className='h-[650px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
+        <div className='h-[700px] lg:h-[650px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
             <div 
                 className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r'
-                style={{ backgroundImage: `url('/22.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                style={{ backgroundImage: `url('/44.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
             </div>
             <div className='w-full lg:col-span-6 col-span-12 items-center justify-center flex'>
-                <form onSubmit={handleSubmit} className="w-full max-w-xs lg:w-1/2 p-8 space-y-6">
+                <form onSubmit={handleSubmit} className="w-full max-w-sm lg:w-2/3 p-8 space-y-6 lg:space-y-8">
                     <Image src="/logo.png" alt="logo" width={100} height={100}  className="mx-auto mb-4 lg:hidden flex" />
-                    <h2 className="text-center text-3xl">Signup</h2>
-                    <div className="space-y-5">
+                    <h2 className="text-center font-extralight text-3xl">Signup</h2>
+                    <div className="space-y-6">
                     {(['email', 'username', 'first_name', 'last_name', 'password'] as const).map(field => (
                         <div key={field}>
                         <input
@@ -83,7 +83,7 @@ const Signup = () => {
                             type={field === 'password' ? 'password' : 'text'}
                             autoComplete={field}
                             required
-                            className="w-full p-2 border rounded font-light "
+                            className="w-full py-1.5 px-2 border rounded font-extralight "
                             name={field}
                             value={formData[field]}
                             onChange={handleInputChange}
@@ -92,17 +92,17 @@ const Signup = () => {
                         </div>
                     ))}
                     {!isPasswordValid && (
-                        <p className="text-red-500 text-sm mt-1">
+                        <p className="text-red-500 text-xs font-extralight">
                         Password must be at least 8 characters long and contain uppercase, lowercase, digit, and symbol.
                         </p>
                     )}
                     </div>
-                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-light hover:font-normal">
+                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-extralight hover:font-light">
                     {loading ? 'Signing up...' : 'Sign up'}
                     </button>
                     <p className="text-center">
                     <Link href="/auth/login">
-                        <span className="font-light hover:font-normal">Login</span>
+                        <span className="font-extralight hover:font-light">Login</span>
                     </Link>
                     </p>
                 </form>

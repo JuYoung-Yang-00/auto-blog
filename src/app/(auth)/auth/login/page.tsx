@@ -45,13 +45,13 @@ const Login = () => {
         <div className='h-[600px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
             <div 
                 className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r'
-                style={{ backgroundImage: `url('/22.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                style={{ backgroundImage: `url('/44.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
             </div>
             <div className='w-full lg:col-span-6 col-span-12 items-center justify-center flex'>
-                <form onSubmit={handleSubmit} className="w-full max-w-xs lg:w-1/2 p-8 space-y-6">
+                <form onSubmit={handleSubmit} className="w-full max-w-xs lg:w-2/3 p-8 space-y-8">
                   <Image src="/logo.png" alt="logo" width={100} height={100} className="mx-auto mb-4 lg:hidden flex" />
-                  <h2 className="text-center text-3xl">Login</h2>
+                  <h2 className="text-center font-extralight text-3xl">Login</h2>
                     <div className=''>
                     <input
                         type="email"
@@ -59,7 +59,7 @@ const Login = () => {
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full p-2 border rounded font-light"
+                        className="w-full py-1.5 px-2 border rounded font-extralight "
                         placeholder='Email'
                         required
                     />
@@ -71,17 +71,17 @@ const Login = () => {
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full p-2 border rounded font-light"
+                        className="w-full py-1.5 px-2 border rounded font-extralight "
                         placeholder='Password'
                         required
                     />
                     </div>
-                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-light hover:font-normal">
+                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-extralight hover:font-light">
                     {loading ? 'Logging in...' : 'Log in'}
                     </button>
                     <p className="text-center">
                     <Link href="/auth/signup">
-                        <span className="font-light hover:font-normal">Sign up</span>
+                        <span className="font-extralight hover:font-light">Sign up</span>
                     </Link>
                     </p>
                 </form>

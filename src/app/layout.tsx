@@ -2,7 +2,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toast/toaster"
 
@@ -23,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >

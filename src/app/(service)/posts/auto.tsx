@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/components/ui/toast/use-toast"
 
+import { Switch } from "@/components/ui/switch"
+
 interface Category {
   id: number;
   name: string;
@@ -83,11 +85,11 @@ const AutoPost = () => {
   };
 
   return (
-    <div className="w-full p-8 border rounded max-w-[1500px] mx-auto">
-      <h1 className="text-lg font-bold mb-6 text-center">Generate Post</h1>
-      <p className='text-md mb-4'> Select topic:</p>
+    <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-6">
+      <h1 className="text-xl font-extralight my-6 text-start">Generate Post</h1>
+      <p className='font-extralight mb-4'> Select categories:</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 font-extralight text-sm">{error}</p>}
         <div className="flex flex-wrap gap-8">
           {categories.map((category) => (
             <div key={category.id} className="flex items-center space-x-2">
@@ -98,56 +100,55 @@ const AutoPost = () => {
               />
               <label
                 htmlFor={`category-${category.id}`}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm font-extralight leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                {category.name}
+                {category.name.toLowerCase()}
               </label>
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-4 mt-2">
-          <label className="text-md" htmlFor="keywords">Keywords:</label>
-          <input
-            type="text"
-            id="keywords"
-            value={keyWords}
-            onChange={(e) => setkeyWords(e.target.value)}
-            className="p-2 border  rounded "
-          />
-        </div>
-        <div className="flex flex-col gap-4 mt-2">
-          <label className="" htmlFor="mainidea">Main Idea:</label>
-          <input
-            type="text"
-            id="mainidea"
-            value={mainIdea}
-            onChange={(e) => setmainIdea(e.target.value)}
-            className="p-2 border rounded "
-          />
+        <div className='"w-full grid lg:grid-cols-12 gap-4 grid-cols-1 my-6'>
+          <div className="lg:w-full lg:col-span-4 w-2/3">
+            {/* <label className="font-extralight" htmlFor="keywords">Keywords:</label> */}
+            <input
+              type="text"
+              id="keywords"
+              value={keyWords}
+              onChange={(e) => setkeyWords(e.target.value)}
+              className="w-full py-1.5 px-2 border rounded font-extralight text-sm"
+              placeholder="Keywords"
+            />
+          </div>
+          <div className="'w-full lg:col-span-8 col-span-8">
+            {/* <label className="font-extralight" htmlFor="mainidea">Main Idea:</label> */}
+            <input
+              type="text"
+              id="mainidea"
+              value={mainIdea}
+              onChange={(e) => setmainIdea(e.target.value)}
+              className="w-full py-1.5 px-2 border rounded font-extralight text-sm"
+              placeholder="Main Idea"
+            />
+          </div>
         </div>
         <div className="flex items-center space-x-2">
-            <Checkbox
-                id={featured ? 'featured' : 'not-featured'}
-                checked={featured}
-                onCheckedChange={(checked) => {
-                    if (checked !== 'indeterminate') {
-                        setFeatured(checked);
-                    }
-                }}
-            />
             <label
-                htmlFor={featured ? 'featured' : 'not-featured'}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                htmlFor="featured-switch"
+                className="text-sm font-extralight leading-none"
             >
-                Featured
+                Featured:
             </label>
+            <Switch
+                checked={featured}
+                onCheckedChange={setFeatured}
+            />
         </div>
         <button
           type="submit"
-          className="border p-1 w-1/4 self-center text-sm rounded"
+          className="border py-1.5 px-2 self-center text-sm rounded mt-4 font-extralight hover:font-light transition duration-150 ease-in-out"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Writing...' : 'Create Post'}
+          {isSubmitting ? 'Writing...' : 'Generate Post'}
         </button>
       </form>
     </div>
@@ -155,3 +156,7 @@ const AutoPost = () => {
 };
 
 export default AutoPost;
+
+
+// use progress https://ui.shadcn.com/docs/components/progress
+// use switch https://ui.shadcn.com/docs/components/switch
