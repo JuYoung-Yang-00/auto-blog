@@ -117,6 +117,12 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
     return dateB.getTime() - dateA.getTime();
   });
 
+  featuredPosts.sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    return dateB.getTime() - dateA.getTime();
+  });
+
   function FeaturedPosts() {
     const plugin = React.useRef(
       Autoplay({

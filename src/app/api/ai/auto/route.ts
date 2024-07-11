@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     const { categories, keywords, mainidea, featured }: { categories: string[], keywords: string, mainidea: string, featured: boolean } = await req.json();
 
     try {
-        const categoryString = categories.join(', ');
+        const categoryString = categories.join(' ');
         console.log('Generating blog post for categories:', categoryString);
         console.log('Generating blog post for key words:', keywords);
         console.log('Generating blog post for main idea:', mainidea);

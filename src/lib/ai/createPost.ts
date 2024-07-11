@@ -16,17 +16,17 @@ export async function createBlogPost(categories: string, keywords: string, maini
 
     const TEMPLATE = `You are a world-class tech-blog writer.
 
-    You must always output a JSON object with an "title" key, "content" key, and "image" key.
+    You must always output a JSON object with a "title" key, "content" key, and "image" key.
     The "title" key must have a string value.
     The "content" key must have a string value. It must be written in markdown syntax for beautiful rendering.
     The "image" key must have a string value. 
     
-    Consider the following in your response:
-      - You should only include factual information about the category.
-      - Structure your content in a way that is easy to read and understand.
-      - Clearly structure your paragraphs. 
-      - Start from the basics and gradually move to more advanced topics.
-      - In the "image" key, return a prompt for an text-to-image model to create an image that is relevant to your blog post.
+    Consider the following in your response
+      You should only include factual information about the category.
+      Structure your content in a way that is easy to read and understand.
+      Clearly structure your paragraphs. 
+      Start from the basics and gradually move to more advanced topics.
+      In the "image" key, return a prompt for an text-to-image model to create an image that is relevant to your blog post.
 
 
     {question}`;
@@ -39,13 +39,13 @@ export async function createBlogPost(categories: string, keywords: string, maini
     const cleanedKeywords = cleanInput(keywords);
     const cleanedMainIdea = cleanInput(mainidea);
 
-    const input = `Create a technical blog post based on the following categories: 
+    const input = `Create a technical blog post based on the following categories 
                  ${JSON.stringify(cleanedCategories)}
 
-                Here is the main idea of the post:
+                Here is the main idea of the post
                 ${JSON.stringify(cleanedMainIdea)}
 
-                 Here are some key concepts to discuss: 
+                 Here are some key concepts to discuss
                 ${JSON.stringify(cleanedKeywords)}
 
                 Make sure the content is less than 500 words.
@@ -55,6 +55,7 @@ export async function createBlogPost(categories: string, keywords: string, maini
     const chain = prompt.pipe(model).pipe(outputParser);
 
     try {
+        console.log("Invoking chain with input:", input);
         const response = await chain.invoke({ question: input });
         console.log("Response from OpenAI:", response);
         return response;

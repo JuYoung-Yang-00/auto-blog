@@ -88,7 +88,6 @@ const AutoPost = () => {
     <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-16 flex flex-col gap-4">
       <p className='font-extralight mt-6'> Select categories:</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-        {error && <p className="text-red-500 font-extralight text-xs">{error}</p>}
         <div className="flex flex-wrap lg:gap-6 gap-4">
           {categories.map((category) => (
             <div key={category.id} className="flex items-center space-x-2">
@@ -147,6 +146,7 @@ const AutoPost = () => {
         >
           {isSubmitting ? 'Writing...' : 'Generate Post'}
         </button>
+        {error && <p className="text-red-500 font-extralight text-xs">{error}</p>}
       </form>
     </div>
   );
