@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/components/ui/toast/use-toast"
+import { Switch } from "@/components/ui/switch"
 
 interface Category {
   id: number;
@@ -16,6 +17,7 @@ const Post = () => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [featured, setFeatured] = useState<boolean>(false);
 
   const {toast} = useToast();
 
@@ -78,47 +80,58 @@ const Post = () => {
   };
 
   return (
-    <div className="w-full p-8 border rounded max-w-[1480px] mx-auto">
-      <h1 className="text-lg font-bold  mb-6 text-center">New Post</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {error && <p className="text-red-500">{error}</p>}
+    <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-16 flex flex-col gap-4">
+      <p className='font-extralight mt-6'> Select categories:</p>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        {error && <p className="text-red-500 font-extralight text-xs">{error}</p>}
+        <div className="flex flex-wrap lg:gap-6 gap-4">
+          {categories.map((category) => (
+            <div key={category.id} className="items-center flex space-x-2">
+            <Checkbox id={category.id.toString()} />
+              <label
+                htmlFor={category.id.toString()}
+                className="text-sm font-extralight leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {category.name}
+              </label>
+          </div>
+          ))}
+        </div>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Post Title"
-          className="border  rounded p-2 "
+          className="w-full lg:w-1/2 py-1.5 px-2 border rounded font-extralight text-sm"
           required
         />
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Post Content"
-          className="border  rounded p-2 min-h-[350px] resize-none"
+          placeholder="Post Content in Markdown"
+          className="py-1.5 px-2 border rounded font-extralight text-sm min-h-[200px]"
           rows={5}
           required
         />
-        <div className="flex flex-wrap gap-8">
-          {categories.map((category) => (
-            <div key={category.id} className="items-top flex space-x-2">
-            <Checkbox id={category.id.toString()} />
-            <div className="grid gap-1.5 leading-none">
-              <label
-                htmlFor={category.id.toString()}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {category.name}
-              </label>
-            </div>
-          </div>
-          ))}
+        <div className="flex items-center space-x-2">
+            <label
+                htmlFor="featured-switch"
+                className="text-sm font-extralight "
+            >
+                Featured:
+            </label>
+            <Switch
+                checked={featured}
+                onCheckedChange={setFeatured}
+            />
         </div>
+
         <button
           type="submit"
-          className="self-center border text-sm  p-1 w-1/8 rounded transition"
+          className="py-1.5 px-2 self-center text-sm rounded mt-4 font-extralight hover:font-light transition duration-150 ease-in-out"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
+          {isSubmitting ? 'Uploading...' : 'Upload'}
         </button>
       </form>
     </div>

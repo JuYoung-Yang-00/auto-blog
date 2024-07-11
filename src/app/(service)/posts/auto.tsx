@@ -85,12 +85,11 @@ const AutoPost = () => {
   };
 
   return (
-    <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-6">
-      <h1 className="text-xl font-extralight my-6 text-start">Generate Post</h1>
-      <p className='font-extralight mb-4'> Select categories:</p>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {error && <p className="text-red-500 font-extralight text-sm">{error}</p>}
-        <div className="flex flex-wrap gap-8">
+    <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-16 flex flex-col gap-4">
+      <p className='font-extralight mt-6'> Select categories:</p>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        {error && <p className="text-red-500 font-extralight text-xs">{error}</p>}
+        <div className="flex flex-wrap lg:gap-6 gap-4">
           {categories.map((category) => (
             <div key={category.id} className="flex items-center space-x-2">
               <Checkbox
@@ -109,7 +108,6 @@ const AutoPost = () => {
         </div>
         <div className='"w-full grid lg:grid-cols-12 gap-4 grid-cols-1 my-6'>
           <div className="lg:w-full lg:col-span-4 w-2/3">
-            {/* <label className="font-extralight" htmlFor="keywords">Keywords:</label> */}
             <input
               type="text"
               id="keywords"
@@ -120,7 +118,6 @@ const AutoPost = () => {
             />
           </div>
           <div className="'w-full lg:col-span-8 col-span-8">
-            {/* <label className="font-extralight" htmlFor="mainidea">Main Idea:</label> */}
             <input
               type="text"
               id="mainidea"
@@ -134,7 +131,7 @@ const AutoPost = () => {
         <div className="flex items-center space-x-2">
             <label
                 htmlFor="featured-switch"
-                className="text-sm font-extralight leading-none"
+                className="text-sm font-extralight "
             >
                 Featured:
             </label>
@@ -145,7 +142,7 @@ const AutoPost = () => {
         </div>
         <button
           type="submit"
-          className="border py-1.5 px-2 self-center text-sm rounded mt-4 font-extralight hover:font-light transition duration-150 ease-in-out"
+          className=" py-1.5 px-2 self-center text-sm rounded mt-4 font-extralight hover:font-light transition duration-150 ease-in-out"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Writing...' : 'Generate Post'}
@@ -159,4 +156,3 @@ export default AutoPost;
 
 
 // use progress https://ui.shadcn.com/docs/components/progress
-// use switch https://ui.shadcn.com/docs/components/switch

@@ -135,7 +135,7 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
           {featuredPosts.map((post, index) => (
             <CarouselItem key={index} className="pl-1">
               <div className="p-1">
-                <Link href={`/post/${post.id}`}>
+                <Link href={`/${username}/${post.id}`}>
                   <Card className='w-full grid lg:grid-cols-12 grid-cols-1'>
                     <div className='w-full lg:col-span-6'>
                       {post.url && (
@@ -179,8 +179,7 @@ export default function AuthorPosts({ params }: AuthorPostsProps) {
 
   return (
     <div className="min-h-screen w-full max-w-[1480px] mx-auto p-2 lg:px-8 mt-14">
-      {/* This div below */}
-      {currentPage === 1 && ( // This checks if the current page is the first page
+      {currentPage === 1 && (
       <div>
         <div className='flex flex-col gap-5 max-w-[1100px] mx-auto mb-8 lg:mb-16'>
           <h1 className="text-2xl font-extralight border-b pb-2"> Featured </h1>

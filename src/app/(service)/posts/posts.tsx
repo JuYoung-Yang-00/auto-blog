@@ -74,7 +74,6 @@ const Posts = () => {
               </button>
             </div>
             <div className="mt-2">
-              {/* <p className="text-gray-600">{post.content}</p> */}
               <div className="flex flex-wrap gap-2 mt-2">
                 {post.post_categories.map((category) => (
                   <span key={category.category_id} className="border px-1 py-0.5 rounded text-sm">

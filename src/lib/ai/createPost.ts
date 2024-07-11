@@ -22,7 +22,7 @@ export async function createBlogPost(categories: string, keywords: string, maini
     The "image" key must have a string value. 
     
     Consider the following in your response:
-      - You should focus on factual information about the category.
+      - You should only include factual information about the category.
       - Structure your content in a way that is easy to read and understand.
       - Clearly structure your paragraphs. 
       - Start from the basics and gradually move to more advanced topics.
@@ -31,15 +31,22 @@ export async function createBlogPost(categories: string, keywords: string, maini
 
     {question}`;
 
+    function cleanInput(input: string): string {
+        return input.replace(/[^a-zA-Z0-9\s]/g, '');
+      }
+
+    const cleanedCategories = cleanInput(categories);
+    const cleanedKeywords = cleanInput(keywords);
+    const cleanedMainIdea = cleanInput(mainidea);
 
     const input = `Create a technical blog post based on the following categories: 
-                 ${JSON.stringify(categories)}
+                 ${JSON.stringify(cleanedCategories)}
 
                 Here is the main idea of the post:
-                ${JSON.stringify(mainidea)}
+                ${JSON.stringify(cleanedMainIdea)}
 
                  Here are some key concepts to discuss: 
-                ${JSON.stringify(keywords)}
+                ${JSON.stringify(cleanedKeywords)}
 
                 Make sure the content is less than 500 words.
                  `;

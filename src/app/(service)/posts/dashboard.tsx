@@ -1,5 +1,5 @@
 "use client"
-
+import { NewFeatureAlert } from "@/app/(service)/components/NewFeatureAlert"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
     Card,
@@ -41,24 +41,26 @@ const chartConfig = {
 
 export function Dashboard() {
   return (
+    
     <div className="border rounded mb-4">
+        <NewFeatureAlert />
         <Card className="w-full">
             <CardHeader>
-                <CardTitle className='font-light lg:text-2xl'>Dashboard</CardTitle>
+                <CardTitle className='font-extralight text-2xl'>Dashboard</CardTitle>
             </CardHeader>
             <CardContent className="w-full grid lg:grid-cols-12 gap-4 grid-cols-1">
                 <div className="w-full lg:col-span-6">
                     <div className="w-full grid lg:grid-cols-12 gap-4 grid-cols-2">
                         <div className="w-full lg:col-span-6 border rounded p-2">
-                            <div className="p-1">
-                                <h1 className="text-lg font-extralight">Total Users</h1>
-                                <h2 className="text-2xl">1,200</h2>
+                            <div className="p-1 flex flex-col gap-1">
+                                <h1 className="font-extralight">Total Users</h1>
+                                <h2 className="text-xl font-light">1,200</h2>
                             </div>
                         </div>
                         <div className="w-full lg:col-span-6 border rounded p-2">
                             <div className="p-1">
-                                <h1 className="text-lg font-extralight">Total Posts</h1>
-                                <h2 className="text-2xl">1,200</h2>
+                                <h1 className="font-extralight">Total Posts</h1>
+                                <h2 className="text-xl font-light">1,200</h2>
                             </div>
                         </div>
                     </div>
@@ -66,15 +68,15 @@ export function Dashboard() {
                 <div className="w-full lg:col-span-6">
                     <div className="w-full grid lg:grid-cols-12 gap-4 grid-cols-2">
                         <div className="w-full lg:col-span-6 border rounded p-2">
-                            <div className="p-1">
-                                <h1 className="text-lg font-extralight">Total Comments</h1>
-                                <h2 className="text-2xl">1,200</h2>
+                        <div className="p-1 flex flex-col gap-1">
+                        <h1 className="font-extralight">Total Comments</h1>
+                                <h2 className="text-xl font-light">1,200</h2>
                             </div>
                         </div>
                         <div className="w-full lg:col-span-6 border rounded p-2">
-                            <div className="p-1">
-                                <h1 className="text-lg font-extralight">Total Likes</h1>
-                                <h2 className="text-2xl">1,200</h2>
+                        <div className="p-1 flex flex-col gap-1">
+                        <h1 className="font-extralight">Total Likes</h1>
+                                <h2 className="text-xl font-light">1,200</h2>
                             </div>
                         </div>
                     </div>
@@ -84,7 +86,7 @@ export function Dashboard() {
 
         <Card>
             <CardHeader>
-                <CardTitle className='font-extralight lg:text-xl'>Monthly Stats</CardTitle>
+                <CardTitle className='font-extralight text-xl'>Monthly Stats</CardTitle>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig} className=" p-0 lg:p-6 h-[400px] w-full mb-2">
