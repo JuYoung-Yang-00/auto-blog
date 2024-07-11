@@ -3,6 +3,7 @@ import { createBlogPost } from '@/lib/ai/createPost';
 import { NextRequest, NextResponse } from 'next/server';
 import { createImage } from '@/lib/ai/createImage';
 
+export const maxDuration = 60;
 export async function POST(req: NextRequest) {
     const supabase = createClient();
     const { data: userData, error: userError } = await supabase.auth.getUser();
