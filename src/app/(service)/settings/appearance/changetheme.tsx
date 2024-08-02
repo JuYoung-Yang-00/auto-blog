@@ -18,7 +18,7 @@ import {
 
 export function ChangeTheme() {
   const { setTheme } = useTheme()
-  const [selectedTheme, setSelectedTheme] = React.useState(null)
+  const [selectedTheme, setSelectedTheme] = React.useState<string | null>(null)
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
 
   const handleApplyChange = () => {
@@ -52,7 +52,7 @@ export function ChangeTheme() {
                   src={LightMode}
                   alt="lightmode"
                   layout="responsive"
-                  className=" rounded"
+                  className="rounded"
                   draggable={false}
                 />
               </div>
@@ -66,7 +66,7 @@ export function ChangeTheme() {
                   src={DarkMode}
                   alt="darkmode"
                   layout="responsive"
-                  className=" rounded"
+                  className="rounded"
                   draggable={false}
                 />
               </div>
@@ -74,21 +74,13 @@ export function ChangeTheme() {
           </DrawerHeader>
           <DrawerFooter>
             <DrawerClose asChild>
-                <button
+              <button
                 className="w-full border dark:border-gray-900 rounded px-3 py-2 text-center text-sm my-4 hover:bg-neutral-50 dark:hover:bg-neutral-950"
                 onClick={handleApplyChange}
-                >
-                <p>Apply Change</p>
-                </button>
-            </DrawerClose>
-            {/* <DrawerClose asChild>
-              <button
-                className="w-full px-2 py-1 text-center font-extralight text-sm mt-2"
-                onClick={() => setIsDrawerOpen(false)}
               >
-                <p>Cancel</p>
+                <p>Apply Change</p>
               </button>
-            </DrawerClose> */}
+            </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
