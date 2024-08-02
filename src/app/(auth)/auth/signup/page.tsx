@@ -65,9 +65,9 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mx-4">
-        <div className='h-[700px] lg:h-[650px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
+        <div className='h-[700px] lg:h-[650px] w-full max-w-[1200px] mx-auto border dark:border-gray-900 rounded grid lg:grid-cols-12 grid-cols-1'>
             <div 
-                className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r'
+                className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r dark:border-gray-900'
                 style={{ backgroundImage: `url('/44.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
             </div>
@@ -83,7 +83,7 @@ const Signup = () => {
                             type={field === 'password' ? 'password' : 'text'}
                             autoComplete={field}
                             required
-                            className="w-full py-1.5 px-2 border rounded font-extralight "
+                            className="w-full py-1.5 px-2 border dark:border-gray-500 rounded font-extralight bg-transparent"
                             name={field}
                             value={formData[field]}
                             onChange={handleInputChange}
@@ -97,7 +97,7 @@ const Signup = () => {
                         </p>
                     )}
                     </div>
-                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-extralight hover:font-light">
+                    <button type="submit" disabled={loading} className="w-full p-2 rounded border dark:border-gray-900 font-extralight hover:font-light">
                     {loading ? 'Signing up...' : 'Sign up'}
                     </button>
                     <p className="text-center">

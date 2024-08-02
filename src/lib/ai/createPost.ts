@@ -11,10 +11,14 @@ export async function createBlogPost(categories: string, keywords: string, maini
         temperature: 0,
         apiKey: openAIKey,
         // maxTokens: 300,
-    });
+    }).bind({
+        response_format: {
+            type: "json_object",
+        },
+    })
 
 
-    const TEMPLATE = `You are a world-class tech-blog writer.
+    const TEMPLATE = `You are a worldclass techblog writer.
 
     You must always output a JSON object with a "title" key, "content" key, and "image" key.
     The "title" key must have a string value.
@@ -28,8 +32,8 @@ export async function createBlogPost(categories: string, keywords: string, maini
       Start from the basics and gradually move to more advanced topics.
       In the "image" key, return a prompt for an text-to-image model to create an image that is relevant to your blog post.
 
-
-    {question}`;
+    {question}
+    `;
 
     function cleanInput(input: string): string {
         return input.replace(/[^a-zA-Z0-9\s]/g, '');
@@ -39,14 +43,25 @@ export async function createBlogPost(categories: string, keywords: string, maini
     const cleanedKeywords = cleanInput(keywords);
     const cleanedMainIdea = cleanInput(mainidea);
 
+    // const input = `Create a technical blog post based on the following categories 
+    //              ${JSON.stringify(cleanedCategories)}
+
+    //             Here is the main idea of the post
+    //             ${JSON.stringify(cleanedMainIdea)}
+
+    //              Here are some key concepts to discuss
+    //             ${JSON.stringify(cleanedKeywords)}
+
+    //             Make sure the content is less than 500 words.
+    //              `;
     const input = `Create a technical blog post based on the following categories 
-                 ${JSON.stringify(cleanedCategories)}
+                ${cleanedCategories}
 
                 Here is the main idea of the post
-                ${JSON.stringify(cleanedMainIdea)}
+                ${cleanedMainIdea}
 
                  Here are some key concepts to discuss
-                ${JSON.stringify(cleanedKeywords)}
+                ${cleanedKeywords}
 
                 Make sure the content is less than 500 words.
                  `;
@@ -55,7 +70,7 @@ export async function createBlogPost(categories: string, keywords: string, maini
     const chain = prompt.pipe(model).pipe(outputParser);
 
     try {
-        console.log("Invoking chain with input:", input);
+        console.log("Invoking chain with input in JSON format:", input);
         const response = await chain.invoke({ question: input });
         console.log("Response from OpenAI:", response);
         return response;

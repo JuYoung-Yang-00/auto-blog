@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import 'react-toastify/dist/ReactToastify.css';
 import { useToast } from "@/components/ui/toast/use-toast"
 
 const Login = () => {
@@ -42,9 +41,9 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mx-4">
-        <div className='h-[600px] w-full max-w-[1200px] mx-auto border rounded grid lg:grid-cols-12 grid-cols-1'>
+        <div className='h-[600px] w-full max-w-[1200px] mx-auto border dark:border-gray-900 rounded grid lg:grid-cols-12 grid-cols-1'>
             <div 
-                className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r'
+                className='flex-col w-full lg:col-span-6 col-span-12 lg:flex hidden justify-between border-r dark:border-gray-900'
                 style={{ backgroundImage: `url('/44.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
             </div>
@@ -59,7 +58,7 @@ const Login = () => {
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full py-1.5 px-2 border rounded font-extralight "
+                        className="w-full py-1.5 px-2 border dark:border-gray-500 rounded font-extralight bg-transparent"
                         placeholder='Email'
                         required
                     />
@@ -71,12 +70,12 @@ const Login = () => {
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full py-1.5 px-2 border rounded font-extralight "
+                        className="w-full py-1.5 px-2 border dark:border-gray-500 rounded font-extralight bg-transparent"
                         placeholder='Password'
                         required
                     />
                     </div>
-                    <button type="submit" disabled={loading} className="w-full p-2 rounded border font-extralight hover:font-light">
+                    <button type="submit" disabled={loading} className="w-full p-2 rounded border dark:border-gray-900 font-extralight hover:font-light">
                     {loading ? 'Logging in...' : 'Log in'}
                     </button>
                     <p className="text-center">

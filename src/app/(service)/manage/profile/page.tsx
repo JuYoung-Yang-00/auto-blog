@@ -26,7 +26,7 @@ export default async function Profile() {
 }
   
 return (
-  <main className="flex min-h-screen flex-col items-center justify-between max-w-[1480px] mx-auto px-5 mt-28">
+  <main className="flex min-h-screen flex-col items-center justify-between max-w-[1480px] mx-auto px-5 mt-28 dark:text-gray-200">
     <PageHead/>
     <div className="flex flex-col gap-10 w-full p-8 rounded">
       <h1 className="self-center text-xl">Welcome Back, {profileData.first_name}</h1>

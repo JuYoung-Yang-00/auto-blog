@@ -85,7 +85,7 @@ const AutoPost = () => {
   };
 
   return (
-    <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-16 flex flex-col gap-4">
+    <div className="w-full p-2 max-w-[1480px] mx-auto flex flex-col gap-4">
       <p className='font-extralight mt-6'> Select categories:</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-8">
         <div className="flex flex-wrap lg:gap-6 gap-4">
@@ -112,7 +112,7 @@ const AutoPost = () => {
               id="keywords"
               value={keyWords}
               onChange={(e) => setkeyWords(e.target.value)}
-              className="w-full py-1.5 px-2 border rounded font-extralight text-sm"
+              className="w-full py-1.5 px-2 border dark:border-gray-500 rounded font-extralight text-sm bg-transparent"
               placeholder="Keywords"
             />
           </div>
@@ -122,7 +122,7 @@ const AutoPost = () => {
               id="mainidea"
               value={mainIdea}
               onChange={(e) => setmainIdea(e.target.value)}
-              className="w-full py-1.5 px-2 border rounded font-extralight text-sm"
+              className="w-full py-1.5 px-2 border dark:border-gray-500 rounded font-extralight text-sm bg-transparent"
               placeholder="Main Idea"
             />
           </div>

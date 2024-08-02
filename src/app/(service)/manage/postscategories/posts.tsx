@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/toast/use-toast"
+import { columns } from "@/app/(service)/manage/postscategories/table/columns"
+import { DataTable } from "@/app/(service)/manage/postscategories/table/data-table"
 
 interface Category {
   category_id: number;
@@ -60,33 +62,40 @@ const Posts = () => {
   };
 
   if (isLoading) return <p>Loading...</p>;
-
   return (
-    <div className="w-full p-8  border rounded">
-      <h1 className="text-lg font-bold  mb-6 text-center">Posts</h1>
-      <div className="flex flex-col gap-4 mb-6">
-        {posts.map((post) => (
-          <div key={post.id} className="border-b pb-4 mb-4">
-            <div className="flex justify-between items-center">
-              <span className=" ">{post.title}</span>
-              <button onClick={() => handleDeletePost(post.id)} className="text-sm font-light hover:underline transition">
-                Delete
-              </button>
-            </div>
-            <div className="mt-2">
-              <div className="flex flex-wrap gap-2 mt-2">
-                {post.post_categories.map((category) => (
-                  <span key={category.category_id} className="border px-1 py-0.5 rounded text-sm">
-                    {category.categories.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="container mx-auto py-2">
+      <DataTable columns={columns} data={posts} />
     </div>
   );
 };
 
 export default Posts;
+
+
+
+
+
+    // <div className="w-full p-8  border rounded">
+    //   <h1 className="text-lg font-bold  mb-6 text-center">Posts</h1>
+    //   <div className="flex flex-col gap-4 mb-6">
+    //     {posts.map((post) => (
+    //       <div key={post.id} className="border-b pb-4 mb-4">
+    //         <div className="flex justify-between items-center">
+    //           <span className=" ">{post.title}</span>
+    //           <button onClick={() => handleDeletePost(post.id)} className="text-sm font-light hover:underline transition">
+    //             Delete
+    //           </button>
+    //         </div>
+    //         <div className="mt-2">
+    //           <div className="flex flex-wrap gap-2 mt-2">
+    //             {post.post_categories.map((category) => (
+    //               <span key={category.category_id} className="border px-1 py-0.5 rounded text-sm">
+    //                 {category.categories.name}
+    //               </span>
+    //             ))}
+    //           </div>
+    //         </div>
+    //       </div>
+    //     ))}
+    //   </div>
+    // </div>

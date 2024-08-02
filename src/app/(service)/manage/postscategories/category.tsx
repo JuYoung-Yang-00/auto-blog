@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/toast/use-toast"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 interface Category {
   id: number;
@@ -89,31 +90,40 @@ const Category = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-      <div className="w-full p-8 border rounded">
-        <h1 className="text-lg font-bold  mb-6 text-center">Categories</h1>
-        <div className="flex flex-col gap-4 mb-6">
-          {categories.map((category) => (
-            <div key={category.id} className="flex justify-between items-center border-b pb-2">
-              <span className=" ">{category.name}</span>
-              <button onClick={() => handleDeleteCategory(category.id)} className="text-sm font-light hover:underline transition">
-                Delete
-              </button>
-            </div>
-          ))}
+    <div className='border max-w-100 mx-auto flex flex-col my-10'>
+      <ScrollArea className="w-100 h-[600px] mb-6">
+        <div className="p-4">
+          <h1 className="text-lg font-extralight  mb-6 text-center">Categories</h1>
+          <div className="flex flex-col gap-2 font-extralight">
+            {categories.map((category) => (
+              <div key={category.id} className="flex justify-between items-center border-b pb-2">
+                <span className=" ">{category.name}</span>
+                <button onClick={() => handleDeleteCategory(category.id)} className="text-sm font-extralight hover:underline transition">
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+
+
         </div>
+        <ScrollBar orientation="vertical" />
+      </ScrollArea>
+      <div className='max-w-96 mx-auto h-[100px]'>
         <div className="flex mt-6 gap-1">
           <input
             type="text"
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
-            placeholder="New Category"
-            className="border  rounded p-2 flex-grow "
+            placeholder="Add New Category"
+            className="border rounded px-1.5 py-1 text-sm font-extralight flex-grow"
           />
-          <button onClick={handleAddCategory} className=" border p-2 rounded text-sm">
+          <button onClick={handleAddCategory} className=" border px-1.5 py-1 rounded text-sm font-extralight hover:font-light">
             Add
           </button>
         </div>
       </div>
+    </div>
   );
 };
 

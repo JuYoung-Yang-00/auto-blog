@@ -80,7 +80,7 @@ const Post = () => {
   };
 
   return (
-    <div className="w-full p-2 max-w-[1480px] mx-auto border-b pb-16 flex flex-col gap-4">
+    <div className="w-full p-2 max-w-[1480px] mx-auto  flex flex-col gap-4">
       <p className='font-extralight mt-6'> Select categories:</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-8">
         {error && <p className="text-red-500 font-extralight text-xs">{error}</p>}
@@ -102,14 +102,14 @@ const Post = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Post Title"
-          className="w-full lg:w-1/2 py-1.5 px-2 border rounded font-extralight text-sm"
+          className="w-full lg:w-1/2 py-1.5 px-2 border dark:border-gray-500 rounded font-extralight text-sm bg-transparent"
           required
         />
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Post Content in Markdown"
-          className="py-1.5 px-2 border rounded font-extralight text-sm min-h-[200px]"
+          className="py-1.5 px-2 border dark:border-gray-500 rounded font-extralight text-sm min-h-[200px] bg-transparent"
           rows={5}
           required
         />

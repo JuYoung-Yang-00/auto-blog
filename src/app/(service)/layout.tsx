@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import Header from '@/app/(service)/components/Header'
+// import Header from '@/app/(service)/components/Header'
 import Footer from '@/app/(service)/components/Footer'
 import { UsernameProvider } from '@/app/(service)/components/ServiceUsernameContext';
-
+import {NavigationMenuHeader} from '@/app/(service)/components/Headerworking';
 
 export const metadata: Metadata = {
-  title: "BOX | ",
+  title: "BOX",
   description: "Auto-Blog",
 };
 
@@ -19,7 +19,8 @@ export default function ServiceLayout({
   return (
     <UsernameProvider>
     <>
-      <Header />
+      {/* <Header /> */}
+      < NavigationMenuHeader  />
       <main>{children}</main>
       <Footer />
     </>
